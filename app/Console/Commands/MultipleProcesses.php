@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\ProductCl;
+use App\Services\PThread;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
@@ -30,7 +31,7 @@ class MultipleProcesses extends Command
      */
     public function handle(): void
     {
-        $this->handle2();
+        $this->handle3();
     }
 
     public function handle1()
@@ -90,6 +91,26 @@ class MultipleProcesses extends Command
         echo "Do stuff after all parallel execution is complete.\n";
         $time = microtime(true) - $start;
         echo "Time = " . $time , " \n";
+    }
+
+
+    public function handle3()
+    {
+        // Creating the pool of threads(stored as array)
+        $poolArr = array();
+//Initiating the threads
+        foreach (range("0", "3") as $i) {
+            $poolArr[] = new PThread($i);
+        }
+//Start each Thread
+        foreach ($poolArr as $t) {
+            $t->start();
+        }
+//Wait all thread to finish
+        foreach (range(0, 3) as $i) {
+            $poolArr[$i]->join();
+        }
+//Next... other sentences with all threads finished.
     }
 
     /**
