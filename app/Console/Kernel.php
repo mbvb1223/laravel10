@@ -12,7 +12,10 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule): void
     {
-        // $schedule->command('inspire')->hourly();
+         $schedule->command('khien:run --channel=1')->everyMinute();
+         $schedule->command('khien:run --channel=2')->everyMinute();
+         $schedule->command('khien:run --channel=3')->everyMinute();
+         $schedule->command('khien:run --channel=4')->everyMinute();
     }
 
     /**
