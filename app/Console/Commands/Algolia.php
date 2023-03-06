@@ -73,7 +73,7 @@ class Algolia extends Command
         })->all();
 //        dd($data);
         // Connect and authenticate with your Algolia app
-        $client = SearchClient::create("EKRR8R2WD9", "00c820fb06fea1e77104b23fc2aa94fa");
+        $client = SearchClient::create("key", "Fake");
 
 // Create a new index and add a record
         $index = $client->initIndex("test_a");
